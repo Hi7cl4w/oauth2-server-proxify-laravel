@@ -183,13 +183,11 @@ class RequestManager
             $options = array_add($options, 'body', $inputs);
         }
 
-        //$request = $client->createRequest($method, $uriVal, $options);
         $request = $client->createRequest($method, $uriVal, $options);
 
 
         try {
             $response = $client->send($request);
-            echo $response->getBody();
         } catch (ClientException $ex) {
             $response = $ex->getResponse();
         }
