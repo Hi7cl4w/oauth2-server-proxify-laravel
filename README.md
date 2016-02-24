@@ -1,4 +1,4 @@
-Laravel 5 Proxy for OAuth
+Laravel 5.2.* Proxy for OAuth
 ================
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
