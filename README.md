@@ -195,8 +195,8 @@ Afterwards edit the file ```app/config/proxy.php``` to suit your needs.
 In the `app/config/routes.php` add a new endpoint like:
 
 ```php
-Route::any('proxify/{url?}', function($url) {
-	return Proxify::makeRequest(Request::method(), Input::all(), $url);
+Route::any('proxify/{url?}', function ($url) {
+  return Proxify::makeRequest(Request::method(), Request::all(), $url);
 })->where('url', '(.*)');
 ```
 
