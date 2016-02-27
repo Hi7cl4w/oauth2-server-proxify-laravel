@@ -12,16 +12,26 @@
 
 namespace Manukn\LaravelProxify\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 /**
  * Exception class
  */
-class CookieExpiredException extends ProxyException
+class CookieExpiredException extends HttpException
 {
-
-    public function __construct()
+    /**
+     * Constructor.
+     *
+     * @param string     $message  The internal exception message
+     * @param \Exception $previous The previous exception
+     * @param int        $code     The internal exception code
+     */
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
     {
-        $this->httpStatusCode = 403;
-        $this->errorType = 'proxy_cookie_expired';
-        parent::__construct(\Lang::get('api-proxy-laravel::messages.proxy_cookie_expired'));
+        if (!$message) {
+            $message = \Lang::get('api-proxy-laravel::messages.proxy_cookie_expired');
+        }
+
+        parent::__construct(403, $message, $previous, array(), $code);
     }
 }

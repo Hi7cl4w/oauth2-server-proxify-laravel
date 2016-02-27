@@ -12,16 +12,24 @@
 
 namespace Manukn\LaravelProxify\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 /**
  * Exception class
  */
-class MissingClientSecretException extends ProxyException
+class MissingClientSecretException extends HttpException
 {
-
-    public function __construct($parameter)
+    /**
+     * Constructor.
+     *
+     * @param string     $message  The internal exception message
+     * @param \Exception $previous The previous exception
+     * @param int        $code     The internal exception code
+     */
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
     {
-        $this->httpStatusCode = 500;
-        $this->errorType = 'missing_client_secret';
-        parent::__construct(\Lang::get('api-proxy-laravel::messages.missing_client_secret', array('client' => $parameter)));
+        $message = \Lang::get('api-proxy-laravel::messages.missing_client_secret', ['client' => $message]);
+
+        parent::__construct(500, $message, $previous, array(), $code);
     }
 }
