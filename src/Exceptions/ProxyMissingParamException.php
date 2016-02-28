@@ -12,16 +12,24 @@
 
 namespace Manukn\LaravelProxify\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 /**
  * Exception class
  */
-class ProxyMissingParamException extends ProxyException
+class ProxyMissingParamException extends HttpException
 {
-
-    public function __construct($parameter)
+    /**
+     * Constructor.
+     *
+     * @param string     $message  The internal exception message
+     * @param \Exception $previous The previous exception
+     * @param int        $code     The internal exception code
+     */
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
     {
-        $this->httpStatusCode = 400;
-        $this->errorType = 'proxy_missing_param';
-        parent::__construct(\Lang::get('api-proxy-laravel::messages.proxy_missing_param', array('param' => $parameter)));
+        $message = \Lang::get('api-proxy-laravel::messages.proxy_missing_param', ['param' => $message]);
+
+        parent::__construct(400, $message, $previous, array(), $code);
     }
 }
