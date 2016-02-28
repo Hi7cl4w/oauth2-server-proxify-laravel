@@ -62,7 +62,7 @@ class Proxy
 
         //Read the cookie if exists
         $parsedCookie = null;
-        if ($this->callMode !== ProxyAux::MODE_SKIP) {
+        if ($this->callMode !== ProxyAux::MODE_SKIP && $this->callMode !== ProxyAux::MODE_LOGIN) {
             try {
                 $parsedCookie = $this->cookieManager->tryParseCookie($this->callMode);
             } catch (CookieExpiredException $ex) {
@@ -113,7 +113,7 @@ class Proxy
     {
         $response = new Response($proxyResponse->getContent(), $proxyResponse->getStatusCode());
 
-        if ($this->callMode === ProxyAux::MODE_LOGIN) {
+        if ($this->callMode === ProxyAux::MODE_LOGIN && $proxyResponse->getStatusCode() === 200) {
             $response->setContent(json_encode($this->successAccessToken()));
         }
         if (isset($cookie)) {
